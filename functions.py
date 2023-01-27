@@ -1,5 +1,6 @@
 import config
 import requests
+import random
 
 def pluralForm(amount, variants):
   amount = abs(amount)
@@ -24,3 +25,6 @@ def get_flags(flag):
 
 def edit_message(args):
   requests.post(f'{config.api_url}/messages.edit?access_token={config.token}&peer_id={args[0]}&message={args[2]}&message_id={args[1]}&keep_forward_messages=1&v=5.131')
+
+def send_message(args):
+  res = requests.post(f'{config.api_url}/messages.send?access_token={config.token}&random_id={random.randint(1, 10000)}&peer_id={args[0]}&message={args[1]}&v=5.131').json()
