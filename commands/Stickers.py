@@ -37,6 +37,12 @@ def get_sticks(update, args):
     f'ㅤ- {functions.pluralForm(free_styles, ["бесплатный", "бесплатных", "бесплатных"])}\n\n' \
     f'Общая стоимость (в голосах/в рублях): {int(rubles_cost/7)} / {rubles_cost} ₽'
   except:
-    functions.edit_message([args[0], args[1], 'Неверный ID!'])
-  
-  functions.edit_message([args[0], args[1], text])
+    if args[3] == 480656577:
+      functions.edit_message([args[0], args[1], 'Неверный ID!'])
+    else:
+      functions.send_message([args[0], 'Неверный ID!'])
+
+  if args[3] == 480656577:
+    functions.edit_message([args[0], args[1], text])
+  else:
+    functions.send_message([args[0], text])
