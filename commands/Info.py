@@ -14,7 +14,7 @@ def get_info(update, args):
   
   if '@' in str(info_id):
     info_id = info_id.split('|')[1].replace('@', '').replace(']', '')
-            
+
   info_result = requests.post(f'{config.api_url}/users.get?access_token={config.token}&user_ids={info_id}&fields=counters,screen_name,sex&v=5.131').json()
   text = ''
   
@@ -36,13 +36,17 @@ def get_info(update, args):
     f'- Короткое имя: @{info_result["response"][0]["screen_name"]}\n' \
     f'- Пол: {sex}\n' \
     f'- Профиль: {profile_status}'
-          
-    try:
+    
+    if profile_status == 'открыт':
       text += f'\n- Друзей: {info_result["response"][0]["counters"]["friends"]}\n' \
       f'- Подписчиков: {info_result["response"][0]["counters"]["followers"]}'
-    except:
-      pass
-    
-    functions.edit_message([args[0], args[1], text])
+
+    if args[3] == 480656577:
+      functions.edit_message([args[0], args[1], text])
+    else:
+      functions.send_message([args[0], text])
   except:
-    functions.edit_message([args[0], args[1], 'Неверный ID!'])
+    if args[3] == 480656577:
+      functions.edit_message([args[0], args[1], 'Неверный ID!'])
+    else:
+      functions.send_message([args[0], 'Неверный ID!'])
