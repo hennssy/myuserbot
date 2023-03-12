@@ -40,7 +40,7 @@ def main(updates):
         except:
           pass
 
-        if from_id != None:
+        if from_id != None and (from_id == 480656577 or from_id in db['allowed']):
           try:
             command = message_text.split()[1]
           except:
